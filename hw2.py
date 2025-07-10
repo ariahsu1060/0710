@@ -5,13 +5,24 @@ from email.header import Header
 
 
 sender ="aria.hsu1060@gmail.com"
-receiver=["juanx20020110@gmail.com","aaa.hsu10600@gmail.com"]
+with open("maillist.txt") as f:
+    lines = f.readlines()
+    receiver = []
+    for i in lines:
+        ans = i.split("\n")
+        print(ans)
+        receiver.append(ans[0])
+
+print("total is"+str(len(receiver)))
 for i in receiver:
     msg = MIMEMultipart()
     msg["fROM"] = sender
     msg["TO"]= i
     msg["Subject"] = Header("test mail","utf-8").encode()
-    body = "this is mail from python"
+    f = open("context.txt")
+    body = f.read()
+    print(body)
+    f.close()
     msg_content = MIMEText(body,_charset="utf-8")
     msg.attach(msg_content)
     ssl_context = ssl.create_default_context()
